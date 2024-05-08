@@ -1,0 +1,29 @@
+## githubConfigUrl is the GitHub url for where you want to configure runners
+## ex: https://github.com/myorg/myrepo or https://github.com/myorg
+githubConfigUrl: "https://github.com/moabukar/playground"
+
+## githubConfigSecret is the k8s secrets to use when auth with GitHub API.
+## You can choose to use GitHub App or a PAT token
+githubConfigSecret:
+  # github_app_id: "app-id-number"
+  # github_app_installation_id: "install-id-number"
+  # github_app_private_key: |
+  #   -----BEGIN RSA PRIVATE KEY-----
+  #   keygoeshere
+  #   -----END RSA PRIVATE KEY-----
+    ### GitHub PAT Configuration
+  github_token: ""
+
+## maxRunners is the max number of runners the auto scaling runner set will scale up to.
+maxRunners: 5
+
+## minRunners is the min number of runners the auto scaling runner set will scale down to.
+minRunners: 1
+
+## template is the PodSpec for each runner Pod
+template:
+  spec:
+    containers:
+      - name: runner
+        image: ghcr.io/actions/actions-runner:latest
+        command: ["/home/runner/run.sh"]
